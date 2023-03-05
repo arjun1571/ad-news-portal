@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Fotter from '../shearedPage/Fotter/Fotter';
+import LeftSideNav from '../shearedPage/Left/LeftSideNav';
 
 const Main = () => {
     return (
@@ -12,9 +13,13 @@ const Main = () => {
             <Header></Header>
             <Container>
                 <Row>
-                    <Col>left side</Col>
-                    <Col xs={6}><Outlet /></Col>
-                    <Col>right side</Col>
+                    <Col lg="3">
+                        <LeftSideNav></LeftSideNav>
+                    </Col>
+                    <Col lg="6">
+                        <Outlet />
+                    </Col>
+                    <Col lg="3">right side</Col>
                 </Row>
             </Container>
             <Fotter></Fotter>
