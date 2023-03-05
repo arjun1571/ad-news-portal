@@ -1,9 +1,12 @@
 import React from 'react';
 
+import LoginBtn from './LoginBtn';
+
 const RightSideNav = () => {
     return (
         <div>
-            <h2>......</h2>
+            <LoginBtn></LoginBtn>
+            
         </div>
     );
 };
