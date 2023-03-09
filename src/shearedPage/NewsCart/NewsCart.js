@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image'
-import { FaBookmark,FaShare, FaStar } from "react-icons/fa";
+import { FaBookmark,FaEye,FaShare, FaStar } from "react-icons/fa";
 
 
 const NewsCart = ({news}) => {
@@ -45,7 +45,7 @@ const NewsCart = ({news}) => {
                         {rating?.number}
                     </div>
                     <div className='d-flex align-items-center'>
-                        <FaStar className='text-warning me-2'></FaStar>
+                        <FaEye className=' me-2'></FaEye>
                         {total_view}
                     </div> 
                 </Card.Footer>
