@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../AuthPorvider/AuthProvider';
 
 const Login = () => {
+    const {setUserIn}=useContext(AuthContext)
+    const navigate=useNavigate()
+    const handleLogin=(event)=>{
+        event.preventDefault();
+        const from=event.target;
+        const email = from.email.value;
+        const password= from.password.value;
+        setUserIn(email,password)
+        .then(resutl=>{
+            const user= resutl.user;
+            console.log(user);
+            from.reset()
+            navigate('/')
+        })
+        .catch(error=>{
+            console.error(error)
+        })
+    }
     return (
-        <Form>
+        <Form onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control name='email' type="email" placeholder="Enter email" required />
