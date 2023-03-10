@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../AuthPorvider/AuthProvider';
 const Register = () => {
     const navigate = useNavigate()
-
+    const [error,setError]=useState("")
     const {CrateUser}=useContext(AuthContext)
     const handleSubmit=(event)=>{
         event.preventDefault();
@@ -21,9 +21,11 @@ const Register = () => {
             console.log(user);
             form.reset()
             navigate("/login")
+            setError("")
         })
         .catch(error=>{
             console.error(error)
+            setError(error.message)
         })
 
     }
@@ -52,6 +54,7 @@ const Register = () => {
             <Button variant="primary" type="submit">
                 Register
             </Button>
+            <p>{error}</p>
         </Form>
     );
 };
