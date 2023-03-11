@@ -3,13 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../AuthPorvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const location = useLocation()
     const {setUserIn}=useContext(AuthContext)
     const [error,setError]=useState('')
     const navigate=useNavigate()
-    const forn = location.state.from.pathname || '/';
+    const forn = location.state?.from.pathname || '/';
     const handleLogin=(event)=>{
         event.preventDefault();
         const from=event.target;
@@ -20,9 +21,15 @@ const Login = () => {
             const user= resutl.user;
             console.log(user);
             from.reset()
-            navigate(forn,{replace: true})
             setError('')
+            if(user.emailVerified){
+                navigate(forn,{replace: true})
+            }
+            else{
+                toast.error("your email is not verified")
+            }
         })
+
         .catch(error=>{
             console.error(error)
             setError(error.message)
@@ -39,7 +46,7 @@ const Login = () => {
                 <Form.Control name='password' type="password" placeholder="Password" required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <p>Don’t have an account ? <Link to="/register">Register</Link></p>
+                <p>Dont have an account ? <Link to="/register">Register</Link></p>
                 
             </Form.Group>
             <Button variant="primary" type="submit">

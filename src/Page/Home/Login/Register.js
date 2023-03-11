@@ -3,10 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../AuthPorvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 const Register = () => {
+    const [accepted,setAccepted]=useState()
     const navigate = useNavigate()
     const [error,setError]=useState("")
-    const {CrateUser}=useContext(AuthContext)
+    const {CrateUser,UpdateUserProfile,emailVerify}=useContext(AuthContext)
     const handleSubmit=(event)=>{
         event.preventDefault();
         const form = event.target;
@@ -22,12 +24,28 @@ const Register = () => {
             form.reset()
             navigate("/login")
             setError("")
+            handleUpdateProfile(name,Photo)
+            emailVerify()
+            toast.success('Please cheak your email address')
         })
         .catch(error=>{
             console.error(error)
             setError(error.message)
         })
 
+    }
+    const handleUpdateProfile =(name,photoURL)=>{
+        const profile ={
+            displayName: name, 
+            photoURL:photoURL,
+        }
+        UpdateUserProfile(profile)
+        .then(()=>{})
+        .catch(error=>console.error(error))
+
+    }
+    const handleACccetped = (event)=>{
+        setAccepted(event.target.checked);
     }
     return (
         <Form onSubmit={handleSubmit}>
@@ -49,9 +67,16 @@ const Register = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <p>Already have an account ? <Link to="/login">LogIn</Link></p>
-                
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox"
+                onClick={handleACccetped} 
+                label={<>
+                    Accept <Link to="/treams">Tream and condition</Link>
+                </>} />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" disabled={!accepted}>
                 Register
             </Button>
             <p>{error}</p>

@@ -8,6 +8,7 @@ import News from "../../Page/Home/News";
 import Login from "../../Page/Home/Login/Login";
 import Register from "../../Page/Home/Login/Register";
 import PrivateRoute from "./PrivateRoute";
+import Treams from "../../Component/Header/Treams";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register></Register>     
+            },
+            {
+                path: "/treams",
+                element: <Treams></Treams>     
             }
         ]
     },
