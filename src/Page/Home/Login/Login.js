@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const location = useLocation()
-    const {setUserIn}=useContext(AuthContext)
+    const {setUserIn,setLoading}=useContext(AuthContext)
     const [error,setError]=useState('')
     const navigate=useNavigate()
     const forn = location.state?.from.pathname || '/';
@@ -33,6 +33,9 @@ const Login = () => {
         .catch(error=>{
             console.error(error)
             setError(error.message)
+        })
+        .finally(()=>{
+            setLoading(false)
         })
     }
     return (

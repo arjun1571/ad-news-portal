@@ -33,7 +33,7 @@ const Header = () => {
                        
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#deets">
+                        <>
                             {
                         user?.uid ? 
                         <>
@@ -45,7 +45,7 @@ const Header = () => {
                         <Link to="/register" className='text-decoration-none'>Register</Link>
                         </>
 
-                        }</Nav.Link>
+                        }</>
                         <Nav.Link eventKey={2} >
                         {
                             user?.photoURL ?
